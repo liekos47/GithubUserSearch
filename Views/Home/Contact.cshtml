@@ -1,0 +1,89 @@
+@model IEnumerable<GithubUserSearch.Models.History>
+@{
+    ViewData["Title"] = "History";
+}
+<h2>@ViewData["Title"]</h2>
+<h3>@ViewData["Message"]</h3>
+
+@if(Model.Any()){
+<table class="table">
+    <thead class="thead-light">
+        <tr>
+            <th scope="col" style="width: 50px;"></th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userId)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userLogin)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userName)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userLocation)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userFollowers)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userHtmlUrl)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userBlog)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.userCompany)</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td><img src="@Url.Content(@item.userAvatar)" alt="Image" style="width: 70%; border-radius: 10%" /></td>
+                <td>@item.userId</td>
+                <td>@item.userLogin</td>
+                <td>
+                    @if (@item.userName is null)
+                    {
+                        <p>Nil</p>
+                    }
+                    else
+                    {@item.userName}
+            </td>
+            <td>
+                @if (@item.userLocation is null)
+                {
+                    <p>Nil</p>
+                }
+                else
+                {@item.userLocation}
+        </td>
+        <td>
+            @if (@item.userFollowers == 0)
+            {
+                <p>Nil</p>
+            }
+            else
+            {@item.userFollowers}
+    </td>
+    <td>
+        @if (string.IsNullOrWhiteSpace(@item.userHtmlUrl))
+        {
+            <p>Nil</p>
+        }
+        else
+        {<a href="@item.userHtmlUrl">@item.userHtmlUrl</a>}
+</td>
+<td>
+    @if (string.IsNullOrWhiteSpace(@item.userBlog))
+    {
+        <p>Nil</p>
+    }
+    else
+    {
+        <a href="@item.userBlog">@item.userBlog</a>}
+</td>
+<td>
+    @if (@item.userCompany is null)
+    {
+        <p>Nil</p>
+    }
+    else
+    {@item.userCompany}
+</td>
+</tr>
+}
+
+    </tbody>
+</table>
+}else{
+
+}

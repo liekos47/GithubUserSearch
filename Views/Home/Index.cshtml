@@ -1,0 +1,120 @@
+﻿@model Octokit.User
+@{
+    ViewData["Title"] = "Github User Search with Octokit API";
+}
+
+<div class="row text-center">
+<h4>@ViewData["Title"]</h4>
+</div>
+
+<div class="row">
+    <div class="col text-center"> 
+    <form asp-controller="Home" asp-action="Index" method="get">
+        <p>
+            <input type="text" placeholder=" Insert a username..." name="username" class="box-search">
+            <input type="submit" value="Search" class="btn-search"/>
+        </p>
+    </form>
+    </div>
+    <hr />
+</div>
+
+<div class="row">
+        <div class="col text-center">
+            <div class="container-fluid text-left">
+                @if(Model is null && @TempData["Message"] is null){
+                    
+                }else if(@TempData["Message"] != null){
+                <div class="row text-center redText"><h3>@TempData["Message"]</h3> </div>
+                
+                }else{
+                
+                <div class="row text-center  row-title">
+                    <h2><strong>GitHub Profile</strong></h2>
+                    <div class="col text-center"><img src="@Url.Content(Model.AvatarUrl)" alt="Image" style="max-width: 15%; border-radius: 10%" /></div>
+                    <div class="col text-center">
+                        <div class="row">
+                        @if(Model.Name is null){
+                            <h3>Nil</h3>
+                        }else{
+                        <h3>@Html.DisplayFor(Model => Model.Name)</h3>
+                        }
+                        </div>
+                    </div>
+                </div>
+                <hr />
+                <div class="row">
+                <div class="col-md-6 text-right content-left">
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Id)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Login)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Location)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Followers)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.HtmlUrl)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Blog)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayNameFor(Model => Model.Company)
+                    </div>
+                </div>
+                <div class="col-sm-1"></div>
+                <div class="col-md-6 text-left content-right">
+                    <div class="row">
+                        @Html.DisplayFor(Model => Model.Id)
+                    </div>
+                    <div class="row">
+                        @Html.DisplayFor(Model => Model.Login)
+                    </div>
+                    <div class="row">
+                        @if(Model.Location is null){
+                            <p>Nil</p>
+                        }else{
+                        @Html.DisplayFor(Model => Model.Location)
+                        }
+                    </div>
+                    <div class="row">
+                        @if(Model.Followers == 0){
+                            <p>Nil</p>
+                        }else{
+                        @Html.DisplayFor(Model => Model.Followers)
+                        }
+                    </div>
+                    <div class="row">
+                        @if(string.IsNullOrWhiteSpace(Model.HtmlUrl)){
+                            <p>Nil</p>
+                        }else{
+                        <a href="@Html.DisplayFor(Model => Model.HtmlUrl)">@Html.DisplayFor(Model => Model.HtmlUrl)</a>
+                        }
+                    </div>
+                    <div class="row">
+                        @if(string.IsNullOrWhiteSpace(Model.Blog)){
+                            <p>Nil</p>
+                        }else{
+                        <a href="@Html.DisplayFor(Model => Model.Blog)">@Html.DisplayFor(Model => Model.Blog)</a>
+                        }
+                    </div>
+                    <div class="row">
+                        @if(Model.Company is null){
+                            <p>Nil</p>
+                        }else{
+                        @Html.DisplayFor(Model => Model.Company)
+                        }
+                    </div>
+                </div>
+                </div>
+                }
+            </div>
+
+        </div>
+    </div>
+</div>
